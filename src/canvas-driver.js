@@ -31,7 +31,7 @@ function renderElement (context, element, parent) {
   }
 
   if (element.kind === 'rotate') {
-    performRotation(context, element.angle)
+    performRotation(context, element)
   }
 
   element.children && element.children.forEach(child => renderElement(context, child, element))
@@ -125,8 +125,8 @@ function drawText(context, element, origin) {
   });
 }
 
-function performRotation(context, origin) {
-  context.rotate(angle);
+function performRotation(context, element) {
+  context.rotate(element.angle);
 }
 
 export function c (kind, opts, children) {
