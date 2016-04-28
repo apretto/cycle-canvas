@@ -18,21 +18,16 @@ function renderElement (context, element, parent) {
     context.font = element.font;
   }
 
-  if (element.kind === 'rect') {
-    drawRect(context, element, origin);
-  }
+  const elementMapping = {
+    rect: drawRect,
+    text: drawText,
+    line: drawLine,
+    rotate: performRotation
+  };
 
-  if (element.kind === 'text') {
-    drawText(context, element, origin);
-  }
+  const elementFunction = elementMapping[element.kind];
 
-  if (element.kind === 'line') {
-    drawLine(context, element, origin);
-  }
-
-  if (element.kind === 'rotate') {
-    performRotation(context, element)
-  }
+  elementFunction(context, element, origin);
 
   element.children && element.children.forEach(child => renderElement(context, child, element))
 
